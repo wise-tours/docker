@@ -1,3 +1,6 @@
 [submodule "prisma-cms/boilerplate"]
 	path = prisma-cms/boilerplate
 	url = https://github.com/prisma-cms/boilerplate
+[submodule "prisma-cms/wise.tours"]
+	path = prisma-cms/wise.tours
+	url = https://github.com/wise-tours/wise.tours
