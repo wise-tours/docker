@@ -13,7 +13,7 @@ services:
   front:
     volumes:
       - ./prisma-cms/${SITE:-boilerplate}/src:/www/${SITE:-boilerplate}/src
-    command: bash -c "yarn deploy && yarn start-ssr-dev"
+    command: bash -c "yarn deploy && yarn start"
 
   api:
     volumes:
