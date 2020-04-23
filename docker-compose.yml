@@ -74,6 +74,7 @@ services:
         - ROLE=API
         - ENV_MODE=development
         - endpoint=${dev_endpoint}
+        - SIGNUP_SET_NOTIFICATIONS=${SIGNUP_SET_NOTIFICATIONS:-true}
     volumes:
       # - schema:/www/${SITE:-boilerplate}/src/schema
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/${SITE:-boilerplate}/uploads
