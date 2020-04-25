@@ -6,9 +6,17 @@ services:
     ports:
       - '4466:4466'
 
-  mysql:
+  postgres:
     ports:
-      - '3306:3306'
+      - 5432:5432
+
+  pgadmin:
+    ports:
+    - 5050:80
+
+  # mysql:
+  #   ports:
+  #     - '3306:3306'
 
   front:
     volumes:
@@ -28,9 +36,9 @@ services:
       - 2016:2016
       - 2017:2017
 
-  pma:
-    ports:
-      - 8090:80
+  # pma:
+  #   ports:
+  #     - 8090:80
 
   mail:
     ports:

@@ -5,11 +5,17 @@ services:
   prisma:
     restart: always
 
-  mysql:
+  postgres:
     restart: always
 
-  pma:
+  pgadmin:
     restart: always
+
+  # mysql:
+  #   restart: always
+
+  # pma:
+  #   restart: always
 
   front:
     restart: always

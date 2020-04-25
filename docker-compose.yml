@@ -1,36 +1,69 @@
 version: "3.7"
 
 services:
+  # prisma:
+  #   image: prismagraphql/prisma:1.34
+  #   # container_name: "prisma"
+    
+  #   # Uncomment for open ports
+  #   # ports:
+  #     # - '4466:4466'
+  #   environment:
+  #     PRISMA_CONFIG: |
+  #       port: 4466
+  #       databases:
+  #         default:
+  #           connector: mysql
+  #           host: ${MYSQL_HOST:-mysql}
+  #           port: ${MYSQL_PORT:-3306}
+  #           # database: ${MYSQL_DB}
+  #           user: ${MYSQL_USER:-root}
+  #           password: ${MYSQL_PASSWORD}
+  #           migrations: ${PRISMA_MIGRATIONS}
+  #           rawAccess: ${PRISMA_RAW_ACCESS}
+  #   # depends_on:
+  #   #   - mysql
+
   prisma:
     image: prismagraphql/prisma:1.34
-    # container_name: "prisma"
-    
-    # Uncomment for open ports
-    # ports:
-      # - '4466:4466'
+    # container_name: "k12_prisma"
     environment:
       PRISMA_CONFIG: |
         port: 4466
         databases:
           default:
-            connector: mysql
-            host: ${MYSQL_HOST:-mysql}
-            port: ${MYSQL_PORT:-3306}
-            # database: ${MYSQL_DB}
-            user: ${MYSQL_USER:-root}
-            password: ${MYSQL_PASSWORD}
-            migrations: ${PRISMA_MIGRATIONS}
-            rawAccess: ${PRISMA_RAW_ACCESS}
-    # depends_on:
-    #   - mysql
+            connector: postgres
+            host: ${PG_HOST:-postgres}
+            port: ${PG_PORT:-5432}
+            user: ${POSTGRES_USER:-prisma}
+            password: ${POSTGRES_PASSWORD:-prisma}
 
-  mysql:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+  postgres:
+    image: kartoza/postgis:12.0
     volumes:
-      # Can set another path 
-      - mysql:/var/lib/mysql
+      - postgres:/var/lib/postgresql
+    environment:
+      # If you need to create multiple database you can add coma separated databases eg gis,data
+      - POSTGRES_DB=${POSTGRES_DB:-prisma}
+      - POSTGRES_USER=${POSTGRES_USER:-prisma}
+      - POSTGRES_PASS=${POSTGRES_PASSWORD:-prisma}
+      # Add extensions you need to be enabled by default in the DB. Default are the five specified below
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
+
+  pgadmin:
+    image: dpage/pgadmin4
+    user: root
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+
+  # mysql:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+  #   volumes:
+  #     # Can set another path 
+  #     - mysql:/var/lib/mysql
 
   pma:
     image: phpmyadmin/phpmyadmin
@@ -103,7 +136,8 @@ services:
     image: mailhog/mailhog
 
 volumes:
-  mysql:
+  # mysql:
+  postgres:
   # schema:
   # shared:
 
