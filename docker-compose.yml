@@ -109,6 +109,7 @@ services:
         - endpoint=${dev_endpoint}
         - SIGNUP_SET_NOTIFICATIONS=${SIGNUP_SET_NOTIFICATIONS:-true}
         - API_SEED_TEMPLATES=${API_SEED_TEMPLATES:-false}
+        - API_SUDO_USER_USERNAME=${API_SUDO_USER_USERNAME}
     volumes:
       # - schema:/www/${SITE:-boilerplate}/src/schema
       - ./prisma-cms/${SITE:-boilerplate}/uploads:/www/${SITE:-boilerplate}/uploads
