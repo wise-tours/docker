@@ -57,13 +57,13 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
 
-  # mysql:
-  #   image: mysql:5.7
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-  #   volumes:
-  #     # Can set another path 
-  #     - mysql:/var/lib/mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      # Can set another path 
+      - mysql:/var/lib/mysql
 
   pma:
     image: phpmyadmin/phpmyadmin
@@ -138,7 +138,7 @@ services:
     image: mailhog/mailhog
 
 volumes:
-  # mysql:
+  mysql:
   postgres:
   # schema:
   # shared:
